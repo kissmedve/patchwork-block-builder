@@ -1,38 +1,138 @@
-.App {
-  text-align: center;
+:root {
+  --color1: #888;
+  --color2: #cfcfcf;
+  --color3: #eee;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Roboto, sans-serif;
+  background: #edebe0;
+  color: #333;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main {
+  margin: 0 auto;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.squares {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  margin: 2rem auto;
+}
+.square {
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+.square svg > .rect,
+.square svg > .hstup,
+.square svg > .hstdown {
+  display: none;
+}
+.square .rect.active,
+.square .hstup.active,
+.square .hstdown.active {
+  display: block;
+}
+.styler {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  display: none;
+  z-index: 100;
+}
+.styler.active {
+  display: block;
+}
+.styler-header {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+}
+.btn.close {
+  border: none;
+  background: transparent;
+}
+.styler label {
+  display: block;
+  padding: 0.15rem 0;
+}
+.form-group {
+  width: 7rem;
+}
+.form-radio span {
+  margin-left: 0.5rem;
+}
+.patches {
+  display: flex;
+  padding: 0.3rem 0;
+}
+.patch {
+  width: 20px;
+  height: 20px;
+}
+.color1 {
+  background: var(--color1);
+}
+.color2 {
+  background: #cfcfcf;
+}
+.color3 {
+  background: var(--color3);
+}
+polygon.color1,
+rect.color1 {
+  fill: var(--color1);
+}
+polygon.color2,
+rect.color2 {
+  fill: var(--color2);
+}
+polygon.color3,
+rect.color3 {
+  fill: var(--color3);
+}
+.colorize {
+  padding: 1rem 0;
+}
+.colorize h3,
+.form-group h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: -0.3px;
+  color: #282828;
+}
+.form-group h3 {
+  padding-bottom: 0.3rem;
+}
+
+.settings {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  column-gap: 2rem;
+  padding: 1rem;
+  background: #fff;
+  border-bottom: 1px solid #c3c3c3;
 }
-
-.App-link {
-  color: #61dafb;
+form label {
+  margin-right: 0.5rem;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form select {
+  padding: 0.2rem 0.4rem 0.2rem;
+}
+.download .btn {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid #c9c9c9;
+  background: rgb(245, 245, 245);
+  text-decoration: none;
+  color: #333;
+  border-radius: 3px;
 }
