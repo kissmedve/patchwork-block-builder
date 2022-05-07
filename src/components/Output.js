@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
-const DownloadBlock = ({ squares, sq, patchType, amountColors }) => {
-  // sq: squareWidth
+const Output = ({
+  squares,
+  squw,
+  patchType,
+  amountColors,
+  orderIdNr,
+  elementsType,
+}) => {
+  // squw: squareWidth
   // color1: "#888"
   // color2: "#cfcfcf"
   // color3: "#eee"
+
+  // local state
+  const [collected, setCollected] = useState([]);
+
+  const addToCollection = (event) => {
+    setCollected([...collected, data]);
+  };
 
   const outputElements = () => {
     let elements = [];
@@ -95,10 +109,10 @@ const DownloadBlock = ({ squares, sq, patchType, amountColors }) => {
         paths = [
           {
             vertices: [
-              [squ.col * sq, squ.row * sq],
-              [(squ.col + 1) * sq, squ.row * sq],
-              [(squ.col + 1) * sq, (squ.row + 1) * sq],
-              [squ.col * sq, (squ.row + 1) * sq],
+              [squ.col * squw, squ.row * squw],
+              [(squ.col + 1) * squw, squ.row * squw],
+              [(squ.col + 1) * squw, (squ.row + 1) * squw],
+              [squ.col * squw, (squ.row + 1) * squw],
             ],
             fillColor: squ.fillSquare,
           },
@@ -107,17 +121,17 @@ const DownloadBlock = ({ squares, sq, patchType, amountColors }) => {
         paths = [
           {
             vertices: [
-              [squ.col * sq, squ.row * sq],
-              [(squ.col + 1) * sq, squ.row * sq],
-              [squ.col * sq, (squ.row + 1) * sq],
+              [squ.col * squw, squ.row * squw],
+              [(squ.col + 1) * squw, squ.row * squw],
+              [squ.col * squw, (squ.row + 1) * squw],
             ],
             fillColor: squ.fillHstLup,
           },
           {
             vertices: [
-              [(squ.col + 1) * sq, squ.row * sq],
-              [(squ.col + 1) * sq, (squ.row + 1) * sq],
-              [squ.col * sq, (squ.row + 1) * sq],
+              [(squ.col + 1) * squw, squ.row * squw],
+              [(squ.col + 1) * squw, (squ.row + 1) * squw],
+              [squ.col * squw, (squ.row + 1) * squw],
             ],
             fillColor: squ.fillHstRup,
           },
@@ -126,17 +140,17 @@ const DownloadBlock = ({ squares, sq, patchType, amountColors }) => {
         paths = [
           {
             vertices: [
-              [squ.col * sq, squ.row * sq],
-              [(squ.col + 1) * sq, (squ.row + 1) * sq],
-              [squ.col * sq, (squ.row + 1) * sq],
+              [squ.col * squw, squ.row * squw],
+              [(squ.col + 1) * squw, (squ.row + 1) * squw],
+              [squ.col * squw, (squ.row + 1) * squw],
             ],
             fillColor: squ.fillHstLdown,
           },
           {
             vertices: [
-              [squ.col * sq, squ.row * sq],
-              [(squ.col + 1) * sq, squ.row * sq],
-              [(squ.col + 1) * sq, (squ.row + 1) * sq],
+              [squ.col * squw, squ.row * squw],
+              [(squ.col + 1) * squw, squ.row * squw],
+              [(squ.col + 1) * squw, (squ.row + 1) * squw],
             ],
             fillColor: squ.fillHstRdown,
           },
@@ -146,14 +160,29 @@ const DownloadBlock = ({ squares, sq, patchType, amountColors }) => {
     });
 
   const createId = () => {
-    return Math.floor(Math.random() * 1000000);
+    return Math.floor(Math.random() * 1000000000);
+  };
+  const orderId4char = () => {
+    let orderNumber = "";
+    if (orderIdNr > 999) {
+      orderNumber = orderIdNr;
+    } else if (orderIdNr > 99) {
+      orderNumber = "0" + orderIdNr;
+    } else if (orderIdNr > 9) {
+      orderNumber = "00" + orderIdNr;
+    } else if (orderIdNr > 0) {
+      orderNumber = "000" + orderIdNr;
+    }
+    return orderNumber;
   };
 
   let data = {
     id: createId(),
+    orderId: `${amountColors}-${patchType}x${patchType}-${elementsType}-${orderId4char()}`,
     rowCol: patchType,
     colours: amountColors,
     size: 100,
+    rotated: 0,
     elements: outputElements(),
     squaresColor1: outputColors()[0],
     squaresColor2: outputColors()[1],
@@ -168,20 +197,28 @@ const DownloadBlock = ({ squares, sq, patchType, amountColors }) => {
 
   return (
     <>
+      <div className="collect">
+        <button className="btn" onClick={addToCollection}>
+          Add to Collection
+        </button>
+      </div>
       <div className="download">
         <a
           className="btn"
           type="button"
           href={`data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(data)
+            JSON.stringify(collected)
           )}`}
-          download="block.json"
+          // download single block file:
+          // download={`${amountColors}-${patchType}x${patchType}-${elementsType}-${orderId4char()}.json`}
+          // download all blocks from state:
+          download={`elementBlocksData.json`}
         >
-          Download Block
+          Download
         </a>
       </div>
     </>
   );
 };
 
-export default DownloadBlock;
+export default Output;

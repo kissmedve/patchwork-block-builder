@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Square from "./Square";
-import DownloadBlock from "./DownloadBlock";
+import Output from "./Output";
 
 const Squares = () => {
   const [squares, setSquares] = useState([
@@ -17,11 +17,13 @@ const Squares = () => {
     },
   ]);
 
-  const [patchType, setPatchType] = useState("1");
+  const [patchType, setPatchType] = useState("2");
   const [amountColors, setAmountColors] = useState("2");
+  const [orderIdNr, setOrderIdNr] = useState(0);
+  const [elementsType, setElementsType] = useState("sq");
   const [activeStyler, setActiveStyler] = useState("");
 
-  const sq = 50; // squareWidth
+  const squw = 50; // squareWidth
 
   useEffect(() => {
     // i: row, k: col
@@ -100,6 +102,10 @@ const Squares = () => {
     setSquares([...filtered, updatedSquare]);
   };
 
+  const handleOrderIdNr = (event) => {
+    setOrderIdNr(event.target.value);
+  };
+
   const allSquares = squares
     .sort((a, b) => (a.id > b.id ? 1 : -1))
     .map((squ) => {
@@ -111,6 +117,7 @@ const Squares = () => {
           id={squ.id}
           squareType={squ.squareType}
           amountColors={amountColors}
+          //orderIdNr={orderIdNr}
           fillSquare={squ.fillSquare}
           fillHstLdown={squ.fillHstLdown}
           fillHstRdown={squ.fillHstRdown}
@@ -122,6 +129,7 @@ const Squares = () => {
           handleColorRup={handleColorRup}
           handleColorLdown={handleColorLdown}
           handleColorRdown={handleColorRdown}
+          //handleOrderIdNr={handleOrderIdNr}
           activeStyler={activeStyler}
           openStyler={handleOpenStyler}
           handleCloseStyler={handleCloseStyler}
@@ -132,6 +140,16 @@ const Squares = () => {
   return (
     <>
       <div className="settings">
+        <form className="amount-colors">
+          <label htmlFor="amount-colors">Number of Colors:</label>
+          <select
+            name="amount-colors"
+            onChange={(event) => setAmountColors(event.target.value)}
+          >
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </form>
         <form className="patch-type">
           <label htmlFor="patchtype">Patch Type:</label>
           <select
@@ -148,22 +166,40 @@ const Squares = () => {
             <option value="9">9 x 9</option>
           </select>
         </form>
-        <form className="amount-colors">
-          <label htmlFor="amount-colors">Number of Colors:</label>
+        <form className="elements-type">
+          <label htmlFor="elementsType">Elements:</label>
           <select
-            name="amount-colors"
-            onChange={(event) => setAmountColors(event.target.value)}
+            name="elementsType"
+            onChange={(event) => setElementsType(event.target.value)}
           >
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option value="sq">squares</option>
+            <option value="tr">triangles</option>
+            <option value="mi">mixed</option>
+            <option value="sp">specials</option>
           </select>
         </form>
+        <form className="order-id">
+          <label htmlFor="orderIdNr">Order Id Nr:</label>
+          {/* example: 2-2x2-sq-0001 */}
+          {/* format: colours-elements-type-id(4char) */}
+          <label className="form-number ">
+            <input
+              className="order-id"
+              type="number"
+              name="orderIdNr"
+              value={orderIdNr}
+              onChange={handleOrderIdNr}
+            />
+          </label>
+        </form>
 
-        <DownloadBlock
+        <Output
           squares={squares}
-          sq={sq}
+          squw={squw}
           patchType={patchType}
+          elementsType={elementsType}
           amountColors={amountColors}
+          orderIdNr={orderIdNr}
         />
       </div>
 

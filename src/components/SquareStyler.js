@@ -6,12 +6,14 @@ const SquareStyler = ({
   onCloseStyler,
   squareType,
   amountColors,
+  //orderIdNr,
   onSelectSquareType,
   onColorSquare,
   onColorLup,
   onColorRup,
   onColorLdown,
   onColorRdown,
+  //onOrderIdNr,
 }) => {
   const closeStyler = onCloseStyler;
   const selectSquareType = onSelectSquareType;

@@ -66,7 +66,7 @@ body {
   padding: 0.15rem 0;
 }
 .form-group {
-  width: 7rem;
+  width: 10rem;
 }
 .form-radio span {
   margin-left: 0.5rem;
@@ -100,8 +100,9 @@ polygon.color3,
 rect.color3 {
   fill: var(--color3);
 }
-.colorize {
-  padding: 1rem 0;
+.colorize,
+.form-group {
+  margin-bottom: 1rem;
 }
 .colorize h3,
 .form-group h3 {

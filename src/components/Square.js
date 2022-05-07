@@ -10,12 +10,14 @@ const Square = ({
   fillHstRdown,
   fillHstLup,
   fillHstRup,
+  orderIdNr,
   handleSelectSquareType,
   handleColorSquare,
   handleColorLup,
   handleColorRup,
   handleColorLdown,
   handleColorRdown,
+  handleOrderIdNr,
   activeStyler,
   openStyler,
   handleCloseStyler,
@@ -80,12 +82,14 @@ const Square = ({
           onCloseStyler={handleCloseStyler}
           squareType={squareType}
           amountColors={amountColors}
+          orderIdNr={orderIdNr}
           onSelectSquareType={handleSelectSquareType}
           onColorSquare={handleColorSquare}
           onColorLup={handleColorLup}
           onColorRup={handleColorRup}
           onColorLdown={handleColorLdown}
           onColorRdown={handleColorRdown}
+          //onOrderIdNr={handleOrderIdNr}
         />
       ) : null}
     </div>
